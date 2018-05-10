@@ -1,4 +1,4 @@
-package sample;
+package ua.dp.edu.crypto;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,13 +8,13 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
-public class Main extends Application
+public class CryptoApp extends Application
 {
 
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        URL document = getClass().getClassLoader().getResource("sample.fxml");
+        URL document = getClass().getClassLoader().getResource("app.fxml");
         Parent root = FXMLLoader.load(document);
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));

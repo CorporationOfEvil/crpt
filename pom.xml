@@ -15,7 +15,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>8.8.3</version>
                 <configuration>
-                    <mainClass>sample.Main</mainClass>
+                    <mainClass>ua.dp.edu.crypto.CryptoApp</mainClass>
 
                 </configuration>
             </plugin>
