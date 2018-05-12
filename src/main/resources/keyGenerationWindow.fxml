@@ -8,12 +8,14 @@
 
 <GridPane alignment="CENTER" hgap="30.0" prefHeight="326.0" prefWidth="307.0" vgap="30.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ua.dp.edu.crypto.controller.KeyGenerationController">
   <children>
-    <Button mnemonicParsing="false" onAction="#selectKeyDirectiry" text="Chose destination folder" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-    <Button alignment="CENTER" mnemonicParsing="false" text="Generate" textAlignment="LEFT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+    <Button mnemonicParsing="false" onMouseClicked="#selectKeyDirectory" text="Chose folder" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+    <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#generateKeys" text="Generate" textAlignment="LEFT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
       <GridPane.margin>
         <Insets />
       </GridPane.margin>
     </Button>
+    <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="125.0" text="Selected folder:" textAlignment="LEFT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+    <TextField fx:id="selectedPath" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -21,6 +23,7 @@
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
   </columnConstraints>
   <rowConstraints>
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
