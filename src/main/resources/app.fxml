@@ -9,7 +9,7 @@
           xmlns="http://javafx.com/javafx/2.2" fx:controller="ua.dp.edu.crypto.controller.AppController">
     <children>
         <Button mnemonicParsing="false" text="Generate Keys" GridPane.columnIndex="1" GridPane.rowIndex="0" onAction="#openKeyGenerationWindow"/>
-        <Button mnemonicParsing="false" text="Encrypt" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Button mnemonicParsing="false" text="Encrypt" GridPane.columnIndex="1" GridPane.rowIndex="1" onMouseClicked="#openEncryptWindow"/>
         <Button mnemonicParsing="false" text="Decrypt" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
     </children>
     <columnConstraints>

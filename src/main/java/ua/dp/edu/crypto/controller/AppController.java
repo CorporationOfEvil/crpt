@@ -1,6 +1,7 @@
 package ua.dp.edu.crypto.controller;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +25,17 @@ public class AppController implements Initializable
     private void openKeyGenerationWindow(ActionEvent event) throws IOException
     {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("keyGenerationWindow.fxml"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("My New Stage Title");
+        stage.setScene(new Scene(root, 450, 450));
+        stage.show();
+    }
+
+    @FXML
+    private void openEncryptWindow(Event event) throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("encryptWindow.fxml"));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("My New Stage Title");
