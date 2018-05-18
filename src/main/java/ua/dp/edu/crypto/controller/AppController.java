@@ -42,4 +42,15 @@ public class AppController implements Initializable
         stage.setScene(new Scene(root, 450, 450));
         stage.show();
     }
+
+    @FXML
+    private void openDecryptWindow(Event event) throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("decryptWindow.fxml"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("My New Stage Title");
+        stage.setScene(new Scene(root, 450, 450));
+        stage.show();
+    }
 }

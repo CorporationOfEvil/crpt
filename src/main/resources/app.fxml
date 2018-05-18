@@ -10,7 +10,7 @@
     <children>
         <Button mnemonicParsing="false" text="Generate Keys" GridPane.columnIndex="1" GridPane.rowIndex="0" onAction="#openKeyGenerationWindow"/>
         <Button mnemonicParsing="false" text="Encrypt" GridPane.columnIndex="1" GridPane.rowIndex="1" onMouseClicked="#openEncryptWindow"/>
-        <Button mnemonicParsing="false" text="Decrypt" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Button mnemonicParsing="false" text="Decrypt" GridPane.columnIndex="1" GridPane.rowIndex="2" onMouseClicked="#openDecryptWindow"/>
     </children>
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
