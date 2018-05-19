@@ -43,7 +43,7 @@ public class AppController implements Initializable
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("My New Stage Title");
-        stage.setScene(new Scene(root, 450, 450));
+        stage.setScene(new Scene(root, 550, 350));
         stage.show();
     }
 
@@ -54,7 +54,7 @@ public class AppController implements Initializable
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("My New Stage Title");
-        stage.setScene(new Scene(root, 450, 450));
+        stage.setScene(new Scene(root, 550, 350));
         stage.show();
     }
 
