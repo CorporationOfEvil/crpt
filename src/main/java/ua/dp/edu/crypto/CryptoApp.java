@@ -16,7 +16,7 @@ public class CryptoApp extends Application
     {
         URL document = getClass().getClassLoader().getResource("app.fxml");
         Parent root = FXMLLoader.load(document);
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Дипломный проект");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
     }

@@ -7,6 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -28,7 +32,7 @@ public class AppController implements Initializable
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("My New Stage Title");
-        stage.setScene(new Scene(root, 450, 450));
+        stage.setScene(new Scene(root, 550, 350));
         stage.show();
     }
 
@@ -52,5 +56,28 @@ public class AppController implements Initializable
         stage.setTitle("My New Stage Title");
         stage.setScene(new Scene(root, 450, 450));
         stage.show();
+    }
+
+    public void openTutorial(Event event)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Помощь");
+        alert.setHeaderText("Инструкция к данному ПО");
+
+        TextArea textArea = new TextArea("А тут Лена напишет инструкцию к применению данного приложния, с описанием использованных алгоритмов  и подходов");
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+        GridPane.setVgrow(textArea, Priority.ALWAYS);
+        GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+        GridPane expContent = new GridPane();
+        expContent.setMaxWidth(Double.MAX_VALUE);
+        expContent.add(textArea, 0, 0);
+        alert.getDialogPane().setExpandableContent(expContent);
+
+        alert.showAndWait();
     }
 }
