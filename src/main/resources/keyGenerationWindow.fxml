@@ -6,30 +6,37 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" hgap="30.0" prefHeight="320.0" prefWidth="558.0000999999975" vgap="30.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ua.dp.edu.crypto.controller.KeyGenerationController">
-  <children>
-    <Button mnemonicParsing="false" onMouseClicked="#selectKeyDirectory" text="Выбрать" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-    <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="319.0" text="Выберите имя и папку для личного ключа" textAlignment="LEFT" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-    <TextField fx:id="selectedPath" editable="false" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-    <Label text="Выберите имя и папку для личного ключа" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-    <TextField editable="false" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-    <Button mnemonicParsing="false" text="Выбрать" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-    <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#generateKeys" text="Сгенерировать" textAlignment="LEFT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-      <GridPane.margin>
-        <Insets />
-      </GridPane.margin>
-    </Button>
-  </children>
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+<GridPane alignment="CENTER" hgap="30.0" prefHeight="320.0" prefWidth="558.0000999999975" vgap="30.0" xmlns:fx="http://javafx.com/fxml/1"
+          xmlns="http://javafx.com/javafx/2.2" fx:controller="ua.dp.edu.crypto.controller.KeyGenerationController">
+    <children>
+        <Button mnemonicParsing="false" onMouseClicked="#selectOpenKeyDirectory" text="Выбрать" GridPane.columnIndex="2" GridPane.halignment="LEFT"
+                GridPane.rowIndex="1" GridPane.valignment="TOP"/>
+        <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="319.0" text="Выберите имя и папку для личного ключа" textAlignment="LEFT"
+               GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER"/>
+        <TextField fx:id="openKeyPath" editable="false" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                   GridPane.valignment="TOP"/>
+        <Label text="Выберите имя и папку для личного ключа" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2"
+               GridPane.valignment="CENTER"/>
+        <TextField fx:id="privateKeyPath" editable="false" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3"
+                   GridPane.valignment="TOP"/>
+        <Button mnemonicParsing="false" onMouseClicked="#selectPrivateKeyDirectory" text="Выбрать" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP"/>
+        <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#generateKeys" text="Сгенерировать" textAlignment="LEFT" GridPane.columnIndex="1"
+                GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <GridPane.margin>
+                <Insets/>
+            </GridPane.margin>
+        </Button>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
 </GridPane>

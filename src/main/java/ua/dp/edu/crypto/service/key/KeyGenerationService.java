@@ -9,13 +9,7 @@ import java.nio.file.Path;
 public interface KeyGenerationService
 {
     /**
-     * Generates and stores public key to specified path.
+     * Generates and stores public and private keys to specified paths.
      */
-    void generatePublicKey(Path destinationPath) throws IOException;
-
-    /**
-     * Generates and stores private key to specified path.
-     */
-    void generatePrivateKey(Path destinationPath) throws IOException;
-
+    void generateKeys(Path publicKeyPath, Path privateKeyPath) throws IOException;
 }

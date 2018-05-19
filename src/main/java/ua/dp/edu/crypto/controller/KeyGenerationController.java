@@ -1,5 +1,6 @@
 package ua.dp.edu.crypto.controller;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -10,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import ua.dp.edu.crypto.service.key.DummyKeyGenerationService;
 import ua.dp.edu.crypto.service.key.KeyGenerationService;
 
@@ -21,10 +22,16 @@ import java.util.ResourceBundle;
 
 public class KeyGenerationController implements Initializable
 {
-    private File selectedFolder;
+    public static final String PUBLIC_KEY_EXTENSION = ".pbk";
+    public static final String PRIVATE_KEY_EXTENSION = ".prk";
+
+    private File openKeyFolder;
+    private File privateKeyFolder;
 
     @FXML
-    private TextField selectedPath;
+    private TextField openKeyPath;
+    @FXML
+    private TextField privateKeyPath;
 
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -32,27 +39,37 @@ public class KeyGenerationController implements Initializable
     }
 
     @FXML
-    private void selectKeyDirectory(MouseEvent event) throws IOException
+    private void selectOpenKeyDirectory(MouseEvent event) throws IOException
     {
         Scene sourceScene = ((Node) (event.getSource())).getScene();
-        selectedFolder = new DirectoryChooser().showDialog(sourceScene.getWindow());
-        if (selectedFolder != null)
+        openKeyFolder = chooseFileForCreation(sourceScene, "публичного", PUBLIC_KEY_EXTENSION);
+        if (openKeyFolder != null)
         {
-            selectedPath.setText(selectedFolder.getPath());
+            openKeyPath.setText(openKeyFolder.getPath() + PUBLIC_KEY_EXTENSION);
+        }
+    }
+
+    @FXML
+    public void selectPrivateKeyDirectory(Event event)
+    {
+        Scene sourceScene = ((Node) (event.getSource())).getScene();
+        privateKeyFolder = chooseFileForCreation(sourceScene, "приватного", PRIVATE_KEY_EXTENSION);
+        if (privateKeyFolder != null)
+        {
+            privateKeyPath.setText(privateKeyFolder.getPath() + PRIVATE_KEY_EXTENSION);
         }
     }
 
     @FXML
     private void generateKeys(MouseEvent event)
     {
-        if (selectedFolder != null && selectedFolder.isDirectory())
+        if (openKeyFolder != null && privateKeyFolder != null)
         {
             KeyGenerationService generationService = new DummyKeyGenerationService();
 
             try
             {
-                generationService.generatePublicKey(selectedFolder.toPath());
-                generationService.generatePrivateKey(selectedFolder.toPath());
+                generationService.generateKeys(openKeyFolder.toPath(), privateKeyFolder.toPath());
 
                 createSuccessfulGenerationMessage();
 
@@ -67,6 +84,16 @@ public class KeyGenerationController implements Initializable
         {
             createNotSelectedDirectoryWarning();
         }
+    }
+
+    private File chooseFileForCreation(Scene sourceScene, String keyName, String extension)
+    {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(String.format("Генерация %s ключа", keyName));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(extension.toUpperCase(), extension));
+        return fileChooser.showSaveDialog(sourceScene.getWindow());
     }
 
     private void createSuccessfulGenerationMessage()
