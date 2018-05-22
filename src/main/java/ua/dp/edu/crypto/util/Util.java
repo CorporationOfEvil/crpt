@@ -15,7 +15,7 @@ public class Util
         return getBytesWithoutSign(result);
     }
 
-    private static byte[] getBytesWithoutSign(BigInteger arg)
+    public static byte[] getBytesWithoutSign(BigInteger arg)
     {
         byte[] sourceArray = arg.toByteArray();
         if (sourceArray[0] != 0)

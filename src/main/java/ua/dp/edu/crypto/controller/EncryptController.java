@@ -19,9 +19,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ResourceBundle;
 
-import static ua.dp.edu.crypto.controller.KeyGenerationController.PUBLIC_KEY_EXTENSION;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class EncryptController implements Initializable
 {
@@ -67,8 +73,7 @@ public class EncryptController implements Initializable
         }
     }
 
-    public void encrypt(Event event) throws IOException
-    {
+    public void encrypt(Event event) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException {
         Scene sourceScene = ((Node) (event.getSource())).getScene();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));

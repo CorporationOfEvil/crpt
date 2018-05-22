@@ -77,7 +77,7 @@ public class DummyKeyGenerationService implements KeyGenerationService
 
     private void storeKeyToFile(Path destinationPath, byte[] data, String fileExtension) throws IOException
     {
-        Path path = Paths.get(destinationPath + fileExtension);
+        Path path = normilizePathWithext(destinationPath, fileExtension);
 
         if (Files.exists(path))
         {
@@ -87,5 +87,12 @@ public class DummyKeyGenerationService implements KeyGenerationService
         {
             outputStream.write(data);
         }
+    }
+
+    private Path normilizePathWithext(Path destinationPath, String fileExtension) {
+        if (!destinationPath.toString().endsWith(fileExtension)) {
+            return Paths.get(destinationPath + fileExtension);
+        }
+        return destinationPath;
     }
 }

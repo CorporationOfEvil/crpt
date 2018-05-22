@@ -1,22 +1,33 @@
 package ua.dp.edu.crypto.service.encrypt;
 
+import org.apache.commons.lang3.ArrayUtils;
 import ua.dp.edu.crypto.util.Util;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static ua.dp.edu.crypto.service.key.DummyKeyGenerationService.KEY_PART_DELIMITER;
 
 public class DummyEncryptionService implements EncryptionService
 {
     @Override
-    public byte[] encrypt(byte[] sourceObject, byte[] key)
-    {
+    public byte[] encrypt(byte[] sourceObject, byte[] key) {
         String compositeKey = new String(key, StandardCharsets.UTF_8);
         String[] parts = compositeKey.split(KEY_PART_DELIMITER);
         BigInteger e = new BigInteger(parts[0]);
         BigInteger n = new BigInteger(parts[1]);
 
-        return Util.modPowByte(sourceObject, e, n);
+        List<Byte> result = new ArrayList<>();
+
+        for (int i = 0; i < sourceObject.length; i++) {
+            String s = String.valueOf((int) sourceObject[i]);
+            byte[] bytes = new BigInteger(s).modPow(e, n).toByteArray();
+            List<Byte> collector = Arrays.asList(ArrayUtils.toObject(bytes));
+            result.addAll(collector);
+        }
+        return ArrayUtils.toPrimitive(result.toArray(new Byte[result.size()]));
     }
 }
