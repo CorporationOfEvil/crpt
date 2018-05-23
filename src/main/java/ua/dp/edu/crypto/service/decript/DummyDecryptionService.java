@@ -8,32 +8,40 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.abs;
 import static ua.dp.edu.crypto.service.key.DummyKeyGenerationService.KEY_PART_DELIMITER;
 
-public class DummyDecryptionService implements DecryptionService
-{
+public class DummyDecryptionService implements DecryptionService {
     @Override
-    public byte[] decrypt(byte[] sourceObject, byte[] key)
-    {
+    public byte[] decrypt(byte[] sourceObject, byte[] key) {
         String compositeKey = new String(key, StandardCharsets.UTF_8);
         String[] parts = compositeKey.split(KEY_PART_DELIMITER);
         BigInteger d = new BigInteger(parts[0]);
         BigInteger n = new BigInteger(parts[1]);
 
-        boolean isLongChunk = false;
+        boolean isStartedCollecting = false;
+        boolean positiveSign = false;
+        byte chunkSize = 0;
         List<Byte> tmp = new ArrayList<>();
         List<Byte> result = new ArrayList<>();
         for (int i = 0; i < sourceObject.length; i++) {
-            if (tmp.isEmpty()) {
-                isLongChunk = sourceObject[i] == 0;
+            if (tmp.isEmpty() && !isStartedCollecting) {
+                chunkSize = (byte) abs(sourceObject[i]);
+                isStartedCollecting = true;
+                positiveSign = sourceObject[i] >= 0;
+                continue;
             }
+
             tmp.add(sourceObject[i]);
-            if ((tmp.size() == 8 && !isLongChunk) || (isLongChunk && tmp.size() == 9)) {
+            chunkSize--;
+
+            if (chunkSize == 0) {
                 BigInteger bigInteger = new BigInteger(ArrayUtils.toPrimitive(tmp.toArray(new Byte[tmp.size()])));
-                String s = bigInteger.modPow(d,n).toString();
-                result.add(Byte.parseByte(s));
+                String s = bigInteger.modPow(d, n).toString();
+                int e = Integer.parseInt(s);
+                result.add(positiveSign ? (byte) e : (byte) (0 - e));
                 tmp.clear();
-                isLongChunk = false;
+                isStartedCollecting = false;
             }
         }
 
