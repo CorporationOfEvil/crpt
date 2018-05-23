@@ -76,10 +76,14 @@ public class DecryptController implements Initializable
             try (OutputStream outputStream = Files.newOutputStream(Files.createFile(targetFile.toPath())))
             {
                 outputStream.write(decryptionService.decrypt(Files.readAllBytes(sourceFile.toPath()), Files.readAllBytes(key.toPath())));
-            }
-            createSuccessfulGenerationMessage();
+                createSuccessfulGenerationMessage();
 
-            ((Node) event.getSource()).getScene().getWindow().hide();
+                ((Node) event.getSource()).getScene().getWindow().hide();
+            }catch (Exception e)
+            {
+                createWrongFileFormatMessage();
+            }
+
 
         }
     }
@@ -111,6 +115,16 @@ public class DecryptController implements Initializable
         expContent.setMaxWidth(Double.MAX_VALUE);
         expContent.add(textArea, 0, 0);
         alert.getDialogPane().setExpandableContent(expContent);
+
+        alert.showAndWait();
+    }
+
+    private void createWrongFileFormatMessage()
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setHeaderText("Пожалуйста выбирите файл верного формата." + "\n" +
+                "Файл ключа должен быть формата .prk,а файл для расшифровки может быть только формата .чтотот");
 
         alert.showAndWait();
     }

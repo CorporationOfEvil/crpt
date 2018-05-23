@@ -84,11 +84,13 @@ public class EncryptController implements Initializable
             try (OutputStream outputStream = Files.newOutputStream(Files.createFile(targetFile.toPath())))
             {
                 outputStream.write(encryptionService.encrypt(Files.readAllBytes(sourceFile.toPath()), Files.readAllBytes(key.toPath())));
+                createSuccessfulGenerationMessage();
+
+                ((Node) event.getSource()).getScene().getWindow().hide();
+            }catch (Exception e)
+            {
+                createWrongFileFormatMessage();
             }
-
-            createSuccessfulGenerationMessage();
-
-            ((Node) event.getSource()).getScene().getWindow().hide();
 
         }
     }
@@ -121,6 +123,15 @@ public class EncryptController implements Initializable
         expContent.setMaxWidth(Double.MAX_VALUE);
         expContent.add(textArea, 0, 0);
         alert.getDialogPane().setExpandableContent(expContent);
+
+        alert.showAndWait();
+    }
+
+    private void createWrongFileFormatMessage()
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setHeaderText("Пожалуйста выбирите файл открытого ключа верного формата." +"\n" + "Файл ключа должен быть формата .prk");
 
         alert.showAndWait();
     }
