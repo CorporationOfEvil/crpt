@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
+import org.apache.commons.io.FilenameUtils;
 import ua.dp.edu.crypto.service.encrypt.DummyEncryptionService;
 import ua.dp.edu.crypto.service.encrypt.EncryptionService;
 
@@ -19,6 +20,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -31,6 +34,7 @@ import javax.crypto.NoSuchPaddingException;
 
 public class EncryptController implements Initializable
 {
+    public static final String ENCRYPTED_FILE_EXTENSION = ".rsa";
     private File sourceFile;
     private File key;
 
@@ -63,6 +67,7 @@ public class EncryptController implements Initializable
     {
         Scene sourceScene = ((Node) (event.getSource())).getScene();
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Выбор публичного ключа");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         //        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(PUBLIC_KEY_EXTENSION.toUpperCase(), PUBLIC_KEY_EXTENSION));
         key = fileChooser.showOpenDialog(sourceScene.getWindow());
@@ -73,23 +78,26 @@ public class EncryptController implements Initializable
         }
     }
 
-    public void encrypt(Event event) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException {
+    public void encrypt(Event event) throws IOException {
         Scene sourceScene = ((Node) (event.getSource())).getScene();
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Введите имя для зашифрованного файла");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         File targetFile = fileChooser.showSaveDialog(sourceScene.getWindow());
-        if (targetFile != null)
-        {
+        if (targetFile != null) {
             EncryptionService encryptionService = new DummyEncryptionService();
-            try (OutputStream outputStream = Files.newOutputStream(Files.createFile(targetFile.toPath())))
-            {
+
+            int index = FilenameUtils.indexOfExtension(sourceFile.getPath());
+            String sourceExtension = sourceFile.getPath().substring(index);
+            Path path = Paths.get(targetFile.getPath() + sourceExtension + ENCRYPTED_FILE_EXTENSION);
+
+            try (OutputStream outputStream = Files.newOutputStream(Files.createFile(path))) {
                 outputStream.write(encryptionService.encrypt(Files.readAllBytes(sourceFile.toPath()), Files.readAllBytes(key.toPath())));
             }
 
             createSuccessfulGenerationMessage();
 
             ((Node) event.getSource()).getScene().getWindow().hide();
-
         }
     }
 
