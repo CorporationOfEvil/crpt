@@ -1,16 +1,12 @@
 package ua.dp.edu.crypto.service.encrypt;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.ArrayUtils;
-import ua.dp.edu.crypto.util.Util;
-
-import java.io.File;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.apache.commons.lang3.ArrayUtils;
 
 import static java.lang.Math.abs;
 import static ua.dp.edu.crypto.service.key.DummyKeyGenerationService.KEY_PART_DELIMITER;
@@ -18,7 +14,7 @@ import static ua.dp.edu.crypto.service.key.DummyKeyGenerationService.KEY_PART_DE
 public class DummyEncryptionService implements EncryptionService
 {
     @Override
-    public byte[] encrypt(byte[] sourceObject, byte[] key) throws IOException {
+    public byte[] encrypt(byte[] sourceObject, byte[] key) {
         String compositeKey = new String(key, StandardCharsets.UTF_8);
         String[] parts = compositeKey.split(KEY_PART_DELIMITER);
         BigInteger e = new BigInteger(parts[0]);

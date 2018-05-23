@@ -53,30 +53,36 @@ public class Test {
     @org.junit.Test
     public void dt() {
         byte[] ar = new byte[]{
-                0, -117, 18, 118, 53, 84, 83, 18, -99, //84
-                77, -84, -78, -71, -40, -45, 111, 63, //104
-                55, 66, -100, 81, 125, -43, -72, 67, //101
-                0, -105, -14, 73, 47, 59, -93, 118, 18, //32
-                0, -117, 18, 118, 53, 84, 83, 18, -99, //84
-                55, 66, -100, 81, 125, -43, -72, 67, //101
-                110, -29, 118, 10, 38, -55, 47, 48, //115
-                110, 94, 47, -1, 79, -23, -99, -89, //116
-                0, -105, -14, 73, 47, 59, -93, 118, 18 //32
+                9, 0, -117, 18, 118, 53, 84, 83, 18, -99, //84
+                8, 77, -84, -78, -71, -40, -45, 111, 63, //104
+                8, 55, 66, -100, 81, 125, -43, -72, 67, //101
+                1, 0,
+                9, 0, -105, -14, 73, 47, 59, -93, 118, 18, //32
+                9, 0, -117, 18, 118, 53, 84, 83, 18, -99, //84
+                8, 55, 66, -100, 81, 125, -43, -72, 67, //101
+                8, 110, -29, 118, 10, 38, -55, 47, 48, //115
+                8, 110, 94, 47, -1, 79, -23, -99, -89, //116
+                9, 0, -105, -14, 73, 47, 59, -93, 118, 18 //32
         };
 
 //        10313831236421573369,11577389220627162371
-        boolean isLongChunk = false;
+        boolean isStartedCollecting = false;
+        byte chunkSize = 0;
         List<Byte> collector = new ArrayList<>();
         for (int i = 0; i < ar.length; i++) {
 
-            if (collector.isEmpty()) {
-                isLongChunk = ar[i] == 0;
+            if (collector.isEmpty() && !isStartedCollecting) {
+                isStartedCollecting = true;
+                chunkSize = ar[i];
+                continue;
             }
             collector.add(ar[i]);
-            if((collector.size() == 8 && !isLongChunk) || (isLongChunk && collector.size() == 9)){
+            chunkSize--;
+
+            if(chunkSize == 0){
                 System.out.println(collector);
                 collector.clear();
-                isLongChunk = false;
+                isStartedCollecting = false;
             }
         }
     }
