@@ -129,7 +129,7 @@ public class EncryptController implements Initializable
 
     private void createWrongFileFormatMessage()
     {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Пожалуйста выбирите файл открытого ключа верного формата." +"\n" + "Файл ключа должен быть формата .prk");
 

@@ -121,7 +121,7 @@ public class DecryptController implements Initializable
 
     private void createWrongFileFormatMessage()
     {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Пожалуйста выбирите файл верного формата." + "\n" +
                 "Файл ключа должен быть формата .prk,а файл для расшифровки может быть только формата .чтотот");
