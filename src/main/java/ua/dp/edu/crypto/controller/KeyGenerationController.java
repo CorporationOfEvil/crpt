@@ -100,7 +100,7 @@ public class KeyGenerationController implements Initializable
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
-        alert.setHeaderText("Keys were successfully generated and stored");
+        alert.setHeaderText("Ключи были успешно сгенерированы и сохранены");
 
         alert.showAndWait();
     }

@@ -114,7 +114,7 @@ public class DecryptController implements Initializable
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
-        alert.setHeaderText("");
+        alert.setHeaderText("Файл был успешно расшифрован и сохранен");
 
         alert.showAndWait();
     }

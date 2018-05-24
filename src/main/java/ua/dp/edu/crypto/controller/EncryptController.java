@@ -112,7 +112,7 @@ public class EncryptController implements Initializable
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
-        alert.setHeaderText("");
+        alert.setHeaderText("Файл был успешно зашифрован и сохранен");
 
         alert.showAndWait();
     }
