@@ -1,11 +1,14 @@
 package ua.dp.edu.crypto.controller;
 
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -22,15 +25,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.ResourceBundle;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 public class EncryptController implements Initializable
 {
@@ -42,6 +37,8 @@ public class EncryptController implements Initializable
     private TextField sourceFilePath;
     @FXML
     private TextField keyPath;
+    @FXML
+    private ProgressBar progressBar;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -95,9 +92,30 @@ public class EncryptController implements Initializable
 
             try (OutputStream outputStream = Files.newOutputStream(Files.createFile(path)))
             {
-                outputStream.write(encryptionService.encrypt(Files.readAllBytes(sourceFile.toPath()), Files.readAllBytes(key.toPath())));
-                createSuccessfulGenerationMessage();
+                byte[] sourceObject = Files.readAllBytes(sourceFile.toPath());
 
+                Thread thread = new Thread(() -> {
+                    try
+                    {
+                        outputStream.write(encryptionService.encrypt(sourceObject, Files.readAllBytes(key.toPath())));
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                });
+                thread.start();
+
+                ProgressTask progressTask = new ProgressTask(sourceObject.length);
+                progressBar.progressProperty().bind(progressTask.progressProperty());
+
+                Thread th = new Thread(progressTask);
+                th.setDaemon(true);
+                th.start();
+
+                thread.join();
+
+                createSuccessfulGenerationMessage();
                 ((Node) event.getSource()).getScene().getWindow().hide();
             }
             catch (Exception e)
@@ -147,5 +165,31 @@ public class EncryptController implements Initializable
         alert.setHeaderText("Пожалуйста выбирите файл открытого ключа верного формата." + "\n" + "Файл ключа должен быть формата .prk");
 
         alert.showAndWait();
+    }
+
+    class ProgressTask extends Task<Void>
+    {
+
+        private int size;
+
+        public ProgressTask(int size)
+        {
+            this.size = size;
+        }
+
+        @Override
+        protected Void call() throws Exception
+        {
+
+            for (int i = 0; i < size / 100; i++)
+            {
+                updateProgress(i, size);
+
+                Thread.sleep(50);
+            }
+
+            return null;
+        }
+
     }
 }
