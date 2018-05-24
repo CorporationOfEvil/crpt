@@ -114,9 +114,11 @@ public class EncryptController implements Initializable
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Помощь");
-        alert.setHeaderText("Инструкция к данному ПО");
+        alert.setHeaderText("Инструкция к шифрованию");
 
-        TextArea textArea = new TextArea("А тут Лена напишет инструкцию к применению данного приложния, с описанием использованных алгоритмов  и подходов");
+        TextArea textArea = new TextArea("Для того чтобы зашифровать файл:" + "\n" + "1. Нажмите на кнопку 'Выбрать' и укажите файл который вы хотите шифровать."
+                + "\n" + "2. Нажмите на кнопку 'Выбрать' и укажите файл открытого ключа. Учтите файл открытого ключа может быть только .pbk формата!"
+                + "\n" + "3. Нажмите на кнопку 'Зашифровать' и укажите место для сохранения и имя зашифрованого файла.");
         textArea.setEditable(false);
         textArea.setWrapText(true);
 
