@@ -123,9 +123,11 @@ public class DecryptController implements Initializable
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Помощь");
-        alert.setHeaderText("Инструкция к данному ПО");
+        alert.setHeaderText("Инструкция к дешифрованию");
 
-        TextArea textArea = new TextArea("А тут Лена напишет инструкцию к применению данного приложния, с описанием использованных алгоритмов  и подходов");
+        TextArea textArea = new TextArea("Для того чтобы дешифровать файл:" + "\n" + "1. Нажмите на кнопку 'Выбрать' и укажите файл который вы хотите дешифровать. Учтите, файл для дешифрования может быть только *** формата!"
+                + "\n" + "2. Нажмите на кнопку 'Выбрать' и укажите файл личного ключа. Учтите файл личного ключа может быть только .prk формата!"
+                + "\n" + "3. Нажмите на кнопку 'Расшифровать' и укажите место для сохранения и имя расшифрованого файла.");
         textArea.setEditable(false);
         textArea.setWrapText(true);
 

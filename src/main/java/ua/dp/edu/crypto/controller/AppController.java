@@ -31,7 +31,7 @@ public class AppController implements Initializable
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("keyGenerationWindow.fxml"));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("My New Stage Title");
+        stage.setTitle("Генерация пары ключей");
         stage.setScene(new Scene(root, 550, 350));
         stage.show();
     }
@@ -42,7 +42,7 @@ public class AppController implements Initializable
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("encryptWindow.fxml"));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("My New Stage Title");
+        stage.setTitle("Шифрование");
         stage.setScene(new Scene(root, 550, 350));
         stage.show();
     }
@@ -53,7 +53,7 @@ public class AppController implements Initializable
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("decryptWindow.fxml"));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("My New Stage Title");
+        stage.setTitle("Дешифрование");
         stage.setScene(new Scene(root, 550, 350));
         stage.show();
     }
@@ -64,7 +64,10 @@ public class AppController implements Initializable
         alert.setTitle("Помощь");
         alert.setHeaderText("Инструкция к данному ПО");
 
-        TextArea textArea = new TextArea("А тут Лена напишет инструкцию к применению данного приложния, с описанием использованных алгоритмов  и подходов");
+        TextArea textArea = new TextArea("Данная програма шифрует и дешифрует файлы на основе алгоритма RSA в котором используются два ключа." + "\n"
+        + "1.) Для того чтоб сгенерировать пару ключей, нажмите на 'Генерировать ключи'. Далее укажите место для хранения файла и имя ключа;"
+                + "\n" +"2.) Для того чтоб зашифровать файл, нажмите на 'Зашифровать'. Далее выбирите выбирите файл для шифрования и открытый ключ, после чего выбирите место хранения и имя для зашифрованного файла;"
+                + "\n" + "3.) Для того чтоб расшифровать файл, нажмите на 'Расшифровать'. Далее выбирите выбирите файл для расшифрования и личный ключ, после чего выбирите место хранения и имя для зашифрованного файла;");
         textArea.setEditable(false);
         textArea.setWrapText(true);
 
