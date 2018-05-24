@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
+import org.apache.commons.io.FilenameUtils;
 import ua.dp.edu.crypto.service.decript.DecryptionService;
 import ua.dp.edu.crypto.service.decript.DummyDecryptionService;
 
@@ -19,7 +20,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
+
+import static ua.dp.edu.crypto.controller.EncryptController.ENCRYPTED_FILE_EXTENSION;
 
 public class DecryptController implements Initializable
 {
@@ -72,7 +77,25 @@ public class DecryptController implements Initializable
         if (targetFile != null)
         {
             DecryptionService decryptionService = new DummyDecryptionService();
-            try (OutputStream outputStream = Files.newOutputStream(Files.createFile(targetFile.toPath())))
+
+            Path path = Paths.get(targetFile.getPath());
+
+            int index = FilenameUtils.indexOfExtension(sourceFile.getPath());
+            String encryptedExt = sourceFile.getPath().substring(index);
+            if (ENCRYPTED_FILE_EXTENSION.equals(encryptedExt))
+            {
+                String s = sourceFile.getPath().substring(0, index);
+                int originalIndex = FilenameUtils.indexOfExtension(s);
+                if (originalIndex > 0)
+                {
+                    int originalExtIndex = FilenameUtils.indexOfExtension(s);
+
+                    path = Paths.get(targetFile.getPath() + s.substring(originalExtIndex));
+                }
+
+            }
+
+            try (OutputStream outputStream = Files.newOutputStream(Files.createFile(path)))
             {
                 outputStream.write(decryptionService.decrypt(Files.readAllBytes(sourceFile.toPath()), Files.readAllBytes(key.toPath())));
                 createSuccessfulGenerationMessage();
