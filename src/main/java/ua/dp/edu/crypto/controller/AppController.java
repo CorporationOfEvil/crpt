@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -82,5 +84,20 @@ public class AppController implements Initializable
         alert.getDialogPane().setExpandableContent(expContent);
 
         alert.showAndWait();
+    }
+
+    public void menuBar(Event event) throws IOException {
+
+//        не получилось добавить отлавливание ивента и открывать на него окно помощи:(
+
+        final MenuBar menuBar = new MenuBar();
+        final Menu fileMenu = new Menu("Файл");
+        final Menu helpMenu = new Menu("Помощь");
+        menuBar.getMenus().addAll(fileMenu, helpMenu);
+
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("decryptWindow.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 550, 350));
+        stage.show();
     }
 }

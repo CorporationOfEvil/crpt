@@ -9,9 +9,9 @@
 <GridPane alignment="CENTER" hgap="30.0" prefHeight="320.0" prefWidth="560.0" vgap="30.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ua.dp.edu.crypto.controller.EncryptController">
   <children>
     <Button mnemonicParsing="false" onMouseClicked="#selectSourceFile" text="Выбрать" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-    <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="319.0" text="Выберите файл для шифрования" textAlignment="LEFT" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+    <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="193.0" text="Выберите файл для шифрования" textAlignment="LEFT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
     <TextField fx:id="sourceFilePath" editable="false" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-    <Label text="Выберите публичный ключ" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+    <Label prefWidth="169.0" text="Выберите открытый ключ" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
     <TextField fx:id="keyPath" editable="false" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
     <Button mnemonicParsing="false" onMouseClicked="#selectKey" text="Выбрать" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
     <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#encrypt" text="Зашифровать" textAlignment="LEFT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
