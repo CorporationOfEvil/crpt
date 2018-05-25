@@ -1,18 +1,26 @@
 package ua.dp.edu.crypto.controller;
 
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -60,24 +68,66 @@ public class AppController implements Initializable
 
     public void openTutorial(Event event)
     {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Помощь");
-        alert.setHeaderText("Инструкция к данному ПО");
+        Group root = new Group();
+        Scene scene = new Scene(root, 300, 150);
+        Stage stage = new Stage();
+        stage.setScene(scene);
 
-        TextArea textArea = new TextArea("А тут Лена напишет инструкцию к применению данного приложния, с описанием использованных алгоритмов  и подходов");
-        textArea.setEditable(false);
-        textArea.setWrapText(true);
+        final VBox vb = new VBox();
+        vb.setSpacing(5);
 
-        textArea.setMaxWidth(Double.MAX_VALUE);
-        textArea.setMaxHeight(Double.MAX_VALUE);
-        GridPane.setVgrow(textArea, Priority.ALWAYS);
-        GridPane.setHgrow(textArea, Priority.ALWAYS);
+        ProgressIndicator progressBar = new ProgressIndicator();
 
-        GridPane expContent = new GridPane();
-        expContent.setMaxWidth(Double.MAX_VALUE);
-        expContent.add(textArea, 0, 0);
-        alert.getDialogPane().setExpandableContent(expContent);
 
-        alert.showAndWait();
+        ProgressTask progressTask = new ProgressTask(20000, progressBar, stage);
+
+        Thread th = new Thread(progressTask);
+
+        progressBar.progressProperty().bind(progressTask.progressProperty());
+        th.setDaemon(true);
+        th.start();
+
+        HBox hBox = new HBox();
+
+        hBox.getChildren().add(progressBar);
+
+        vb.getChildren().add(hBox);
+        scene.setRoot(vb);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+    }
+
+    class ProgressTask extends Task<Void>
+    {
+
+        private final Stage stage;
+        private int size;
+        ProgressIndicator progressBar;
+
+        public ProgressTask(int size, ProgressIndicator progressBar, Stage stage)
+        {
+            this.size = size;
+            this.progressBar = progressBar;
+            this.stage = stage;
+        }
+
+        @Override
+        protected Void call() throws Exception
+        {
+
+            for (int i = 0; i < size / 100; i++)
+            {
+
+                updateProgress(i, size / 100);
+                Thread.sleep(50);
+
+                System.out.println("working");
+            }
+
+            stage.hide();
+            return null;
+        }
+
     }
 }
