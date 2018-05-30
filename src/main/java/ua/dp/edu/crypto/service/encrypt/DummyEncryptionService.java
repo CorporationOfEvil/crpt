@@ -2,6 +2,8 @@ package ua.dp.edu.crypto.service.encrypt;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +17,8 @@ public class DummyEncryptionService implements EncryptionService
 {
     @Override
     public byte[] encrypt(byte[] sourceObject, byte[] key) {
+        Instant start, stop;
+        start = Instant.now();
         String compositeKey = new String(key, StandardCharsets.UTF_8);
         String[] parts = compositeKey.split(KEY_PART_DELIMITER);
         BigInteger e = new BigInteger(parts[0]);
@@ -32,7 +36,11 @@ public class DummyEncryptionService implements EncryptionService
             collector.addAll(Arrays.asList(ArrayUtils.toObject(bytes)));
             result.addAll(collector);
         }
+        stop = Instant.now();
+        long al = Duration.between(start, stop).toNanos();
+        System.out.println("encryption: " + al);
 
         return ArrayUtils.toPrimitive(result.toArray(new Byte[result.size()]));
+
     }
 }

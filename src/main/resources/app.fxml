@@ -17,7 +17,7 @@
             <MenuItem mnemonicParsing="false" text="Выйти" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Помощь">
+        <Menu mnemonicParsing="false" onAction="#openTutorial" text="Помощь">
         </Menu>
       </menus>
     </MenuBar>

@@ -2,6 +2,7 @@ package ua.dp.edu.crypto.controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Modality;
@@ -93,11 +95,23 @@ public class AppController implements Initializable
         final MenuBar menuBar = new MenuBar();
         final Menu fileMenu = new Menu("Файл");
         final Menu helpMenu = new Menu("Помощь");
-        menuBar.getMenus().addAll(fileMenu, helpMenu);
 
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("decryptWindow.fxml"));
+        //fileMenu.setAccelerator(KeyCombination.keyCombination("Ctrl+X"));
+        helpMenu.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                openTutorial(event);
+            }
+        });
+        menuBar.getMenus().addAll(fileMenu, helpMenu);
+//        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("decryptWindow.fxml"));
+        BorderPane root = new BorderPane();
+        root.setTop(menuBar);
         Stage stage = new Stage();
         stage.setScene(new Scene(root, 550, 350));
         stage.show();
+
+//
     }
 }
