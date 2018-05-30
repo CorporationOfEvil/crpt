@@ -66,7 +66,19 @@ public class AppController implements Initializable
         stage.show();
     }
 
-    public void openTutorial(Event event)
+    @FXML
+    public void openTutorial(Event event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("progress.fxml"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("My New Stage Title");
+        stage.setScene(new Scene(root, 222, 228));
+        stage.show();
+        System.out.println("hasudhjashdjhasdh");
+    }
+
+    @FXML
+    public void openTutoriall(Event event)
     {
         Group root = new Group();
         Scene scene = new Scene(root, 300, 150);

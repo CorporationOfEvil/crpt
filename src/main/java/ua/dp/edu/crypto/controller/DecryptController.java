@@ -1,9 +1,13 @@
 package ua.dp.edu.crypto.controller;
 
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
@@ -11,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
 import ua.dp.edu.crypto.service.decript.DecryptionService;
 import ua.dp.edu.crypto.service.decript.DummyDecryptionService;
@@ -68,13 +74,51 @@ public class DecryptController implements Initializable
         }
     }
 
-    public void decrypt(Event event) throws IOException
-    {
+    public void decrypt(Event event) throws IOException, InterruptedException {
         Scene sourceScene = ((Node) (event.getSource())).getScene();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         File targetFile = fileChooser.showSaveDialog(sourceScene.getWindow());
-        if (targetFile != null)
+
+
+
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(getClass().getClassLoader().getResource("progress.fxml"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Processing");
+                stage.setScene(new Scene(root, 222, 228));
+                stage.show();
+            }
+        });
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Thread thread = new Thread(new DecryptionTask());
+                thread.setDaemon(true);
+
+                thread.start();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+
+
+
+/*        if (targetFile != null)
         {
             DecryptionService decryptionService = new DummyDecryptionService();
 
@@ -97,7 +141,26 @@ public class DecryptController implements Initializable
 
             try (OutputStream outputStream = Files.newOutputStream(Files.createFile(path)))
             {
-                outputStream.write(decryptionService.decrypt(Files.readAllBytes(sourceFile.toPath()), Files.readAllBytes(key.toPath())));
+//                outputStream.write(decryptionService.decrypt(Files.readAllBytes(sourceFile.toPath()), Files.readAllBytes(key.toPath())));
+
+                Thread thread = new Thread(new DecryptionTask(outputStream));
+                thread.setDaemon(false);
+
+                thread.start();
+
+                System.out.println("asdfsfdfdfdfsdf");
+
+
+
+                System.out.println("asdfsfdfdfdfsdf");
+
+                thread.join();
+
+                System.out.println("asdfsfdfdfdfsdf");
+
+                alert.hide();
+                System.out.println("asdfsfdfdfdfsdf");
+
                 createSuccessfulGenerationMessage();
 
                 ((Node) event.getSource()).getScene().getWindow().hide();
@@ -107,7 +170,7 @@ public class DecryptController implements Initializable
                 createWrongFileFormatMessage();
             }
 
-        }
+        }*/
     }
 
     private void createSuccessfulGenerationMessage()
@@ -150,5 +213,28 @@ public class DecryptController implements Initializable
                         "Файл ключа должен быть формата .prk,а файл для расшифровки может быть только формата .чтотот");
 
         alert.showAndWait();
+    }
+
+    class DecryptionTask extends Task<Void>
+    {
+        private OutputStream outputStream;
+
+        public DecryptionTask() {
+        }
+
+        public DecryptionTask(OutputStream outputStream) {
+            this.outputStream = outputStream;
+        }
+
+        @Override
+        protected Void call() throws Exception {
+//            DecryptionService decryptionService = new DummyDecryptionService();
+//            outputStream.write(decryptionService.decrypt(Files.readAllBytes(sourceFile.toPath()), Files.readAllBytes(key.toPath())));
+
+            Thread.sleep(10000l);
+            return null;
+
+
+        }
     }
 }
