@@ -14,10 +14,13 @@
       <menus>
         <Menu mnemonicParsing="false" text="Файл">
           <items>
-            <MenuItem mnemonicParsing="false" text="Выйти" />
+            <MenuItem mnemonicParsing="false" text="Выйти" onAction="#close" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Помощь">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Справка" onAction="#openTutorial" />
+          </items>
         </Menu>
       </menus>
     </MenuBar>
