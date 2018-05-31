@@ -83,4 +83,8 @@ public class AppController implements Initializable
 
         alert.showAndWait();
     }
+
+    public void close(ActionEvent actionEvent) {
+        System.exit(0);
+    }
 }

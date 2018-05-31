@@ -5,20 +5,34 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" hgap="30.0" prefHeight="190.0" prefWidth="307.0" vgap="30.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ua.dp.edu.crypto.controller.AppController">
+<GridPane alignment="CENTER" hgap="30.0" prefHeight="181.99997792968497" prefWidth="173.0" vgap="30.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ua.dp.edu.crypto.controller.AppController">
   <children>
-    <Button mnemonicParsing="false" onAction="#openKeyGenerationWindow" text="Сгенерировать ключи" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-    <Button mnemonicParsing="false" onMouseClicked="#openEncryptWindow" text="Зашифровать" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-    <Button mnemonicParsing="false" onMouseClicked="#openDecryptWindow" text="Расшифровать" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-    <Button mnemonicParsing="false" onMouseClicked="#openTutorial" text="?" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+    <Button mnemonicParsing="false" onAction="#openKeyGenerationWindow" text="Сгенерировать ключи" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+    <Button mnemonicParsing="false" onMouseClicked="#openEncryptWindow" text="Зашифровать" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+    <Button mnemonicParsing="false" onMouseClicked="#openDecryptWindow" text="Расшифровать" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+    <MenuBar GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="TOP">
+      <menus>
+        <Menu mnemonicParsing="false" text="Файл">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Выйти" onAction="#close" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Помощь">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Справка" onAction="#openTutorial" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="179.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="11.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="89.0" minHeight="8.0" prefHeight="25.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="179.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
   </rowConstraints>
 </GridPane>
